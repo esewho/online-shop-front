@@ -1,12 +1,12 @@
 import "./App.css"
 
+import IndexRoutes from "./routes/indexRoutes"
+
 function App() {
 	return (
-		<>
-			<div>
-				<h1 className="font-bold text-center text-2xl">tukis</h1>
-			</div>
-		</>
+		<div>
+			<IndexRoutes />
+		</div>
 	)
 }
 

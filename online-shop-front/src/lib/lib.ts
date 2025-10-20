@@ -1,6 +1,6 @@
 import type { Product } from "../types/product-type"
 
-const API_URL = import.meta.env.BASE_URL || "http://localhost:3000"
+const API_URL = "http://localhost:3000"
 
 export async function getAllProducts(): Promise<Product[]> {
 	const token = localStorage.getItem("accessToken") || ""
@@ -32,18 +32,27 @@ export async function getProductById(id: number): Promise<Product> {
 	return response.json()
 }
 
-export async function searchProducts(query: string): Promise<Product[]> {
+export async function searchProducts(query: {
+	title: string
+	price: number
+	description: string
+}): Promise<Product[]> {
+	const searchParams = new URLSearchParams()
+	searchParams.append("title", query.title)
+	searchParams.append("price", query.price.toString())
+	searchParams.append("description", query.description)
+
+	const queryString = searchParams.toString()
+
 	const token = localStorage.getItem("accessToken")
-	const response = await fetch(
-		`${API_URL}/products?query=${encodeURIComponent(query)}`,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		}
-	)
+
+	const response = await fetch(`${API_URL}/products?${queryString}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+	})
 	if (!response.ok) {
 		throw new Error("Failed to search products")
 	}
