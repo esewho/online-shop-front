@@ -7,7 +7,11 @@ export default function Navbar() {
 			<div className="w-[85%] mx-auto flex items-center justify-between px-4 py-3">
 				<div>logo</div>
 				<div className="border flex flex-row items-center py-1 px-2 bg-white rounded-sm gap-2">
-					<input type="text" className=" outline-0" />
+					<input
+						placeholder="Buscar producto..."
+						type="text"
+						className=" outline-0 placeholder:opacity-50"
+					/>
 					<SearchIcon size={20} />
 				</div>
 				<nav className="flex items-center gap-6 text-sm">

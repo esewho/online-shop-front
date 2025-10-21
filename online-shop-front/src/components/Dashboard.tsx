@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllProducts } from "../lib/lib"
 import type { Product } from "../types/product-type"
 import Card from "./Card"
+import toast from "react-hot-toast"
 
 export default function Dashboard() {
 	const [loading, setLoading] = useState<boolean>(false)
@@ -22,14 +23,17 @@ export default function Dashboard() {
 		}
 		fetchProducts()
 	}, [])
-
-	if (loading) return <div>Loading...</div>
+	if (loading) return <div>{toast.loading("Loading products")}</div>
+	else {
+		toast.dismiss()
+	}
 	if (error) return <div>Error loading dashboard</div>
 	return (
 		<div className="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 overflow-x-hidden">
 			{products.map((p) => (
 				<Card
 					key={p.id}
+					id={p.externalId}
 					title={p.title}
 					images={p.images.length > 0 ? p.images[0] : ""}
 					price={p.price}

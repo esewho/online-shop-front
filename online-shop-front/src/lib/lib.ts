@@ -17,7 +17,7 @@ export async function getAllProducts(): Promise<Product[]> {
 	return response.json()
 }
 
-export async function getProductById(id: number): Promise<Product> {
+export async function getProductById(id: string): Promise<Product> {
 	const token = localStorage.getItem("accessToken")
 	const response = await fetch(`${API_URL}/products/${id}`, {
 		method: "GET",
