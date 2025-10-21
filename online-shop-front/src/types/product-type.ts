@@ -5,5 +5,5 @@ export type Product = {
 	price_max: number
 	price: number
 	description: string
-	imageUrl: string
+	images: string[]
 }

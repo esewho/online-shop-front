@@ -1,5 +1,3 @@
-import "./App.css"
-
 import IndexRoutes from "./routes/indexRoutes"
 
 function App() {
