@@ -2,9 +2,36 @@ import type { Product } from "../types/product-type"
 
 const API_URL = "http://localhost:3000"
 
-export async function getAllProducts(): Promise<Product[]> {
+export async function getAllProducts(params: {
+	title?: string
+	price?: number
+	description?: string
+	categoryId?: number
+	limit?: number
+	offset?: number
+	price_min?: number
+	price_max?: number
+}): Promise<Product[]> {
+	const searchParams = new URLSearchParams()
+	if (params.title) searchParams.append("title", params.title)
+	if (params.price) searchParams.append("price", params.price.toString())
+	if (params.description) searchParams.append("description", params.description)
+	if (params.categoryId)
+		searchParams.append("categoryId", params.categoryId.toString())
+	if (params.limit) searchParams.append("limit", params.limit.toString())
+	if (params.offset || params.offset === 0)
+		searchParams.append("offset", params.offset.toString())
+	if (params.price_min)
+		searchParams.append("price_min", params.price_min.toString())
+	if (params.price_max)
+		searchParams.append("price_max", params.price_max.toString())
+	const queryString = searchParams.toString()
+
+	const url = queryString
+		? `${API_URL}/products?${queryString}`
+		: `${API_URL}/products`
 	const token = localStorage.getItem("accessToken") || ""
-	const response = await fetch(`${API_URL}/products`, {
+	const response = await fetch(`${url}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",

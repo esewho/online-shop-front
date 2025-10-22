@@ -12,7 +12,7 @@ export default function Dashboard() {
 		async function fetchProducts() {
 			try {
 				setLoading(true)
-				const data = await getAllProducts()
+				const data = await getAllProducts({})
 				setProducts(data)
 				console.log(data)
 			} catch (e: any) {
@@ -21,19 +21,21 @@ export default function Dashboard() {
 				setLoading(false)
 			}
 		}
-		fetchProducts()
+
+		toast.promise(fetchProducts(), {
+			loading: "Loading products...",
+			success: "Products loaded successfully!",
+			error: "Error loading products",
+		})
 	}, [])
-	if (loading) return <div>{toast.loading("Loading products")}</div>
-	else {
-		toast.dismiss()
-	}
+
 	if (error) return <div>Error loading dashboard</div>
 	return (
 		<div className="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 overflow-x-hidden">
 			{products.map((p) => (
 				<Card
 					key={p.id}
-					id={p.externalId}
+					id={p.id}
 					title={p.title}
 					images={p.images.length > 0 ? p.images[0] : ""}
 					price={p.price}

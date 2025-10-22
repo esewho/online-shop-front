@@ -4,7 +4,7 @@ import { DetailsIcon } from "./Icons"
 type Props = {
 	id: string
 	title: string
-	price: number
+	price?: number
 	images: string
 }
 
@@ -26,12 +26,12 @@ export default function Card({ title, price, images, id }: Props) {
 				<img src={images} alt={title} className=" " />
 			</div>
 			<div className="p-3">
-				<h1 className="text-2xl font-bold text-zinc-700 py-4  h-24 ">
-					{title}
-				</h1>
-				<span className=" font-bold text-xl  text-zinc-700">
-					${price.toFixed(2)}
-				</span>
+				<h1 className="text-2xl font-bold text-zinc-700 py-4 h-30 ">{title}</h1>
+				{price && (
+					<span className=" font-bold text-xl  text-zinc-700">
+						${price.toFixed(2)}
+					</span>
+				)}
 			</div>
 		</div>
 	)

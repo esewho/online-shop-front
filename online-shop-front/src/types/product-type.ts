@@ -1,5 +1,11 @@
 export type Product = {
 	id: string
+	category: {
+		id: number
+		name: string
+		slug: string
+	}
+
 	externalId: string
 	title: string
 	price_min: number
