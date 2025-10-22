@@ -74,7 +74,7 @@ export default function ProductDetail() {
 							<img
 								src={selectedImage}
 								alt={product.title}
-								className="w-full h-[500px] object-cover transition-transform duration-300 ease-out transform-gpu hover:scale-110 "
+								className="w-full h-[500px] object-center transition-transform duration-300 ease-out transform-gpu hover:scale-110 "
 							/>
 						</div>
 						<div className="flex flex-row gap-5 align-middle">
