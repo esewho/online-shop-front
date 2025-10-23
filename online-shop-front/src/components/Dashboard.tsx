@@ -63,7 +63,7 @@ export default function Dashboard() {
 					/>
 				))}
 			</div>
-			<div className="bottom-0 flex flex-row justify-center  ">
+			<div className="bottom-0 flex flex-row justify-center   ">
 				<Pagination page={page} handlePageChange={handlePageChange} />
 			</div>
 		</div>
