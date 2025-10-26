@@ -84,7 +84,7 @@ export default function ProductDetail() {
 									key={index}
 									src={img}
 									alt={`${product.title} - ${index + 2}`}
-									className={`w-24 h-24 object-cover rounded-lg cursor-pointer border hover:border-amber-400 ${
+									className={`w-24 h-24 object-fit rounded-lg cursor-pointer border hover:border-amber-400 ${
 										selectedImage === img && "border-amber-400"
 									} `}
 								/>

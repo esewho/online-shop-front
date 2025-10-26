@@ -1,7 +1,7 @@
 import type { Product } from "./product-type"
 
 export type CartItem = {
-	id: string
+	id: Product["id"]
 	productId: string
 	product?: Product
 	quantity: number
