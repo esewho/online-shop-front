@@ -1,8 +1,18 @@
 import { Outlet } from "react-router-dom"
 
 import Navbar from "./Navbar"
+import useLoginGuest from "../hooks/useLoginGuest"
 
 export default function LayoutApp() {
+	const { loading, error } = useLoginGuest()
+
+	if (loading) {
+		return <div>Loading...</div>
+	}
+
+	if (error) {
+		return <div>Error: {error}</div>
+	}
 	return (
 		<div className="min-h-screen">
 			<Navbar />

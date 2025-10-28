@@ -15,7 +15,7 @@ export default function Navbar() {
 					<SearchIcon size={20} />
 				</div>
 				<nav className="flex items-center gap-6 text-sm">
-					<Link to="/cart">
+					<Link to="/home/cart">
 						<CartIcon size={24} />
 					</Link>
 					<Link to="/profile">

@@ -1,3 +1,4 @@
+import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
 
 const API_URL = "http://localhost:3000"
@@ -59,6 +60,22 @@ export async function getProductById(id: string): Promise<Product> {
 	return response.json()
 }
 
+export async function loginGuest(
+	guestId: string
+): Promise<{ accesstoken: string }> {
+	const response = await fetch(`${API_URL}/auth/login-guest`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ guestId }),
+	})
+	if (!response.ok) {
+		throw new Error("Failed to login as guest")
+	}
+	return response.json()
+}
+
 export async function searchProducts(query: {
 	title: string
 	price: number
@@ -86,7 +103,7 @@ export async function searchProducts(query: {
 	return response.json()
 }
 
-export async function getUserCart(): Promise<Product[]> {
+export async function getUserCart(): Promise<Cart> {
 	const token = localStorage.getItem("accessToken")
 	const response = await fetch(`${API_URL}/cart`, {
 		method: "GET",
@@ -113,6 +130,25 @@ export async function addToCart(productId: string): Promise<void> {
 	})
 	if (!response.ok) {
 		throw new Error("Failed to add product to cart")
+	}
+	return response.json()
+}
+
+export async function removeFromCart(
+	productId: string,
+	quantity?: number
+): Promise<void> {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/cart/${productId}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify({ quantity }),
+	})
+	if (!response.ok) {
+		throw new Error("Failed to remove product from cart")
 	}
 	return response.json()
 }
