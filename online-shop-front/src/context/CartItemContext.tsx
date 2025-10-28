@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react"
+import React, { useEffect } from "react"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
 import { addToCart, getUserCart, removeFromCart } from "../lib/lib"
