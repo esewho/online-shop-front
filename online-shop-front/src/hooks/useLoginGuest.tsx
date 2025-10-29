@@ -14,7 +14,7 @@ export default function useLoginGuest() {
 			}
 			try {
 				const response = await loginGuest(guestId)
-				localStorage.setItem("accessToken", response.accesstoken)
+				localStorage.setItem("accessToken", response.accessToken)
 				setLoading(false)
 			} catch (error) {
 				console.error("Error logging in as guest:", error)

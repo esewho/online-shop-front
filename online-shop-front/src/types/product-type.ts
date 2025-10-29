@@ -7,7 +7,8 @@ export type Product = {
 	}
 
 	externalId: string
-	title: string
+	title?: string
+	name?: string
 	price_min: number
 	price_max: number
 	price: number

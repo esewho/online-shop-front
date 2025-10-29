@@ -14,10 +14,10 @@ export default function LayoutApp() {
 		return <div>Error: {error}</div>
 	}
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen flex flex-col ">
 			<Navbar />
-			<main className="flex flex-col h-full px-10 py-6 justify-center items-center overflow-x-hidden">
-				<div className="gap-6 items-center ">
+			<main className="flex-1 flex flex-col px-10 py-6 items-center overflow-x-hidden">
+				<div className="w-full h-full max-w-7xl">
 					<Outlet />
 				</div>
 			</main>

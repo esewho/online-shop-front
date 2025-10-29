@@ -57,7 +57,7 @@ export default function Dashboard() {
 					<Card
 						key={p.id}
 						id={p.id}
-						title={p.title}
+						title={p.title ?? "Producto sin título"}
 						images={p.images.length > 0 ? p.images[0] : ""}
 						price={p.price}
 					/>

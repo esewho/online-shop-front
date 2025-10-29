@@ -59,3 +59,36 @@ export function DetailsIcon(props: Props) {
 		</svg>
 	)
 }
+export function TrashIcon(props: Props) {
+	const { size } = props
+	return (
+		<svg width={size} height={size} viewBox="0 0 24 24">
+			<path
+				fill="none"
+				stroke="#ffffff"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+			/>
+		</svg>
+	)
+}
+
+export function IncrementIcon(props: Props) {
+	const { size } = props
+	return (
+		<svg width={size} height={size} viewBox="0 0 24 24">
+			<path fill="#ffffff" d="M13 6.5V11h4.5v2H13v4.5h-2V13H6.5v-2H11V6.5z" />
+		</svg>
+	)
+}
+
+export function DecrementIcon(props: Props) {
+	const { size } = props
+	return (
+		<svg width={size} height={size} viewBox="0 0 24 24">
+			<path fill="#ffffff" d="M19 13H5v-2h14z" />
+		</svg>
+	)
+}

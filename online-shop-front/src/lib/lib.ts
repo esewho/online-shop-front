@@ -1,3 +1,4 @@
+import toast from "react-hot-toast"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
 
@@ -62,7 +63,7 @@ export async function getProductById(id: string): Promise<Product> {
 
 export async function loginGuest(
 	guestId: string
-): Promise<{ accesstoken: string }> {
+): Promise<{ accessToken: string }> {
 	const response = await fetch(`${API_URL}/auth/login-guest`, {
 		method: "POST",
 		headers: {
@@ -118,18 +119,65 @@ export async function getUserCart(): Promise<Cart> {
 	return response.json()
 }
 
-export async function addToCart(productId: string): Promise<void> {
+export async function addToCart(externalId: string): Promise<void> {
 	const token = localStorage.getItem("accessToken")
-	const response = await fetch(`${API_URL}/cart`, {
+	console.log(
+		externalId,
+		token,
+		"-------------------------------------------------"
+	)
+	const response = await fetch(`${API_URL}/cart/items`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,
 		},
-		body: JSON.stringify({ productId }),
+		body: JSON.stringify({ externalId }),
 	})
 	if (!response.ok) {
 		throw new Error("Failed to add product to cart")
+	}
+	return await toast.promise(response.json(), {
+		loading: "Adding to cart...",
+		success: "Product added to cart!",
+		error: "Error adding product to cart",
+	})
+}
+
+export async function incrementCartItem(
+	productId: string,
+	quantity?: number
+): Promise<void> {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/cart/items/${productId}/increment`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify({ quantity }),
+	})
+	if (!response.ok) {
+		throw new Error("Failed to increment product quantity in cart")
+	}
+	return response.json()
+}
+
+export async function decrementCartItem(
+	productId: string,
+	quantity?: number
+): Promise<void> {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/cart/items/${productId}/decrement`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify({ quantity }),
+	})
+	if (!response.ok) {
+		throw new Error("Failed to decrement product quantity in cart")
 	}
 	return response.json()
 }
@@ -139,8 +187,8 @@ export async function removeFromCart(
 	quantity?: number
 ): Promise<void> {
 	const token = localStorage.getItem("accessToken")
-	const response = await fetch(`${API_URL}/cart/${productId}`, {
-		method: "DELETE",
+	const response = await fetch(`${API_URL}/cart/items/${productId}`, {
+		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,

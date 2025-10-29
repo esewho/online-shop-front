@@ -1,7 +1,14 @@
 import React, { useEffect } from "react"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
-import { addToCart, getUserCart, removeFromCart } from "../lib/lib"
+import {
+	addToCart,
+	decrementCartItem,
+	getUserCart,
+	incrementCartItem,
+	removeFromCart,
+} from "../lib/lib"
+import toast from "react-hot-toast"
 
 type CartItemCtx = {
 	cart: Cart
@@ -24,6 +31,7 @@ export const CartItemProvider = ({
 		id: "",
 		userId: "",
 		items: [],
+		total: 0,
 	})
 
 	useEffect(() => {
@@ -40,6 +48,7 @@ export const CartItemProvider = ({
 
 	const add = async (product: Product, qty: number = 1) => {
 		const previousCart = cart
+		const extId = product.id
 
 		try {
 			setCart((prevCart) => {
@@ -62,7 +71,11 @@ export const CartItemProvider = ({
 				}
 			})
 
-			await addToCart(product.id)
+			await toast.promise(incrementCartItem(extId), {
+				loading: "Adding to cart...",
+				success: "Product added to cart!",
+				error: "Error adding product to cart",
+			})
 		} catch (error) {
 			console.error("Error adding to cart:", error)
 			setCart(previousCart)
@@ -83,7 +96,7 @@ export const CartItemProvider = ({
 					),
 				}
 			})
-			await removeFromCart(productId, qty)
+			await decrementCartItem(productId, qty)
 		} catch (error) {
 			console.error("Error decrementing cart item:", error)
 			setCart(previousCart)
@@ -115,7 +128,16 @@ export const CartItemProvider = ({
 				id: "",
 				userId: "",
 				items: [],
+				total: 0,
 			})
+			await toast.promise(
+				Promise.all(cart.items.map((item) => removeFromCart(item.product.id))),
+				{
+					loading: "Clearing cart...",
+					success: "Cart cleared!",
+					error: "Error clearing cart",
+				}
+			)
 		} catch (error) {
 			console.error("Error clearing cart:", error)
 			setCart(previousCart)

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { getAllProducts, getProductById } from "../lib/lib"
+import { getAllProducts, getProductById, addToCart } from "../lib/lib"
 import type { Product } from "../types/product-type"
 import { useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 import Card from "./Card"
+import { useCartItem } from "../context/CartItemContext"
 
 export default function ProductDetail() {
 	const { id } = useParams<{ id: string }>()
@@ -21,6 +22,7 @@ export default function ProductDetail() {
 				const data = await getProductById(id!)
 				setProduct(data)
 				setSelectedImage(data.images.length > 0 ? data.images[0] : "")
+				window.scrollTo({ top: 0, behavior: "smooth" })
 			} catch (e: any) {
 				setError(e?.message ?? "Unknown error")
 			} finally {
@@ -109,7 +111,10 @@ export default function ProductDetail() {
 							{product.description}
 						</p>
 
-						<button className="bg-black text-white font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer">
+						<button
+							onClick={() => addToCart(String(product.id))}
+							className="bg-black text-white font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
+						>
 							Añadir al carrito
 						</button>
 					</>
@@ -124,7 +129,7 @@ export default function ProductDetail() {
 						<Card
 							key={p.id}
 							id={p.id}
-							title={p.title}
+							title={p.title ?? p.name ?? "Producto sin título"}
 							images={p.images.length > 0 ? p.images[0] : ""}
 						/>
 					))}

@@ -4,4 +4,5 @@ export type Cart = {
 	id: string
 	userId: string
 	items: CartItem[]
+	total: number
 }
