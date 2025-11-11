@@ -28,7 +28,7 @@ export default function Navbar() {
 						</Link>
 					</div>
 
-					<Link to="/profile">
+					<Link to="/profile/me">
 						<UserIcon size={24} />
 					</Link>
 					<Link to="/home">

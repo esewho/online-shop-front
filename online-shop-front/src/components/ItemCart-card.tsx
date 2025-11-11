@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { useCartItem } from "../context/CartItemContext"
 import { DecrementIcon, IncrementIcon, TrashIcon } from "./Icons"
+import type { Product } from "../types/product-type"
 
 type Props = {
 	id: string
+	externalId?: string
 	title: string
 	price: number
 	quantity: number
@@ -51,9 +53,7 @@ export default function ItemCartCard({
 						Cantidad: {quantity}
 					</p>
 					<button
-						onClick={() =>
-							add({ id, title, price, images: images[0], category }, 1)
-						}
+						onClick={() => add({ id } as Product, 1)}
 						className="cursor-pointer mt-0.5 bg-black rounded-2xl p-0"
 					>
 						<IncrementIcon size={19.5} />

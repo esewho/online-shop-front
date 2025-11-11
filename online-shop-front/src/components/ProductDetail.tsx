@@ -9,6 +9,8 @@ import { useCartItem } from "../context/CartItemContext"
 export default function ProductDetail() {
 	const { id } = useParams<{ id: string }>()
 
+	const { add } = useCartItem()
+
 	const [loading, setLoading] = useState<boolean>(false)
 	const [product, setProduct] = useState<Product | null>(null)
 	const [error, setError] = useState<null | string>(null)
@@ -121,10 +123,10 @@ export default function ProductDetail() {
 				)}
 			</section>
 
-			<section className=" col-span-2  w-full h-[500px]">
+			<section className=" col-span-2  w-full min-h-full ">
 				<h1 className="text-2xl font-bold text-center mt-2">Mas productos</h1>
 
-				<div className="flex flex-row items-center  gap-6 w-full h-full ">
+				<div className="grid grid-cols-5 gap-4 w-full h-auto mt-4 overflow-y-auto px-2 py-2">
 					{products.map((p) => (
 						<Card
 							key={p.id}

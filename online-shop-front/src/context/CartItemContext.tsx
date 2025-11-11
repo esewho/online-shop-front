@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
 import {
-	addToCart,
 	decrementCartItem,
 	getUserCart,
 	incrementCartItem,
@@ -38,7 +37,13 @@ export const CartItemProvider = ({
 		async function fetchCart() {
 			try {
 				const cart = await getUserCart()
-				setCart(cart)
+				setCart((prev) => ({
+					...prev,
+					id: cart.id,
+					userId: cart.userId,
+					items: cart.items,
+					total: cart.total,
+				}))
 			} catch (error) {
 				console.error("Error fetching cart:", error)
 			}
@@ -48,7 +53,6 @@ export const CartItemProvider = ({
 
 	const add = async (product: Product, qty: number = 1) => {
 		const previousCart = cart
-		const extId = product.id
 
 		try {
 			setCart((prevCart) => {
@@ -71,7 +75,7 @@ export const CartItemProvider = ({
 				}
 			})
 
-			await toast.promise(incrementCartItem(extId), {
+			await toast.promise(incrementCartItem(product.id), {
 				loading: "Adding to cart...",
 				success: "Product added to cart!",
 				error: "Error adding product to cart",

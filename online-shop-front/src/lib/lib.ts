@@ -1,6 +1,7 @@
 import toast from "react-hot-toast"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
+import type { Profile } from "../types/profile-type"
 
 const API_URL = "http://localhost:3000"
 
@@ -231,6 +232,37 @@ export async function login(
 	})
 	if (!response.ok) {
 		throw new Error("Failed to login")
+	}
+	return response.json()
+}
+
+export async function getProfile() {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/profile/me`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+	})
+	if (!response.ok) {
+		throw new Error("Failed to fetch user profile")
+	}
+	return response.json()
+}
+
+export async function updateProfile(data: Profile): Promise<void> {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/profile/me`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify(data),
+	})
+	if (!response.ok) {
+		throw new Error("Failed to update user profile")
 	}
 	return response.json()
 }
