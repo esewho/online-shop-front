@@ -1,16 +1,42 @@
 import { useState } from "react"
 import { register } from "../lib/lib"
+import { useNavigate } from "react-router-dom"
 
 export default function RegisterForm() {
 	const [name, setName] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 
+	const navigate = useNavigate()
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		try {
-			const data = await register(email, password)
-		} catch (error) {}
+			if (!name || !email || !password) {
+				alert("Por favor, completa todos los campos.")
+				return
+			}
+			if (password.length < 6) {
+				alert("La contraseña debe tener al menos 6 caracteres.")
+				return
+			}
+			if (!/\S+@\S+\.\S+/.test(email)) {
+				alert("Por favor, ingresa un correo electrónico válido.")
+				return
+			}
+			if (name.length < 2) {
+				alert("El nombre debe tener al menos 2 caracteres.")
+				return
+			}
+			if (name.length > 50) {
+				alert("El nombre no puede exceder los 50 caracteres.")
+				return
+			}
+			const data = await register(email, name, password)
+			localStorage.setItem("accessToken", data.accessToken)
+		} catch (error) {
+			console.error("Registration failed:", error)
+		}
 	}
 
 	return (
@@ -79,6 +105,7 @@ export default function RegisterForm() {
 				<button
 					type="submit"
 					className="w-full py-2 mt-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-all shadow-sm hover:shadow-md cursor-pointer"
+					onClick={() => navigate("/home")}
 				>
 					Registrarme
 				</button>

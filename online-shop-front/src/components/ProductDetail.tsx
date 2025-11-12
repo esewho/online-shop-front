@@ -114,7 +114,7 @@ export default function ProductDetail() {
 						</p>
 
 						<button
-							onClick={() => addToCart(String(product.id))}
+							onClick={() => add(product, 1)}
 							className="bg-black text-white font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
 						>
 							Añadir al carrito

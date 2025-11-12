@@ -204,6 +204,7 @@ export async function removeFromCart(
 
 export async function register(
 	email: string,
+	name: string,
 	password: string
 ): Promise<{ accessToken: string }> {
 	const response = await fetch(`${API_URL}/auth/register`, {
@@ -211,11 +212,16 @@ export async function register(
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ email, password }),
+		body: JSON.stringify({ email, password, name }),
 	})
 	if (!response.ok) {
-		throw new Error("Failed to register user")
+		toast.error("Error en el registro. Por favor, intenta de nuevo.")
+		throw new Error("Failed to register")
 	}
+	if (response.ok) {
+		toast.success("Registro exitoso. ¡Bienvenido!")
+	}
+	toast.error("Error en el registro. Por favor, intenta de nuevo.")
 	return response.json()
 }
 
@@ -223,6 +229,7 @@ export async function login(
 	email: string,
 	password: string
 ): Promise<{ accessToken: string }> {
+	console.log("Logging in with:", email, password)
 	const response = await fetch(`${API_URL}/auth/login`, {
 		method: "POST",
 		headers: {
@@ -230,6 +237,7 @@ export async function login(
 		},
 		body: JSON.stringify({ email, password }),
 	})
+	console.log(response, "-----------------response-------------------")
 	if (!response.ok) {
 		throw new Error("Failed to login")
 	}

@@ -4,18 +4,25 @@ import type { Product } from "../types/product-type"
 import Card from "./Card"
 import toast from "react-hot-toast"
 import Pagination from "./Pagination"
+import { useSearchParams } from "react-router-dom"
 
 export default function Dashboard() {
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<boolean>(null)
 	const [products, setProducts] = useState<Product[]>([])
 	const [page, setPage] = useState<number>(1)
+	const [searchParams] = useSearchParams()
+	const query = searchParams.get("query") || ""
 
 	useEffect(() => {
 		async function fetchProducts() {
 			try {
 				setLoading(true)
-				const data = await getAllProducts({ limit: 10, offset: 0 })
+				const data = await getAllProducts({
+					limit: 10,
+					offset: 0,
+					title: query,
+				})
 				setProducts(data)
 				console.log(data)
 			} catch (e: any) {
@@ -30,7 +37,7 @@ export default function Dashboard() {
 			success: "Products loaded successfully!",
 			error: "Error loading products",
 		})
-	}, [])
+	}, [query])
 
 	async function handlePageChange(newPage: number) {
 		try {

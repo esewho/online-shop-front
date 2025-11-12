@@ -1,9 +1,28 @@
 import { Link } from "react-router-dom"
-import { CartIcon, HomeIcon, SearchIcon, UserIcon } from "./Icons"
+import { CartIcon, HomeIcon, LogOutIcon, SearchIcon, UserIcon } from "./Icons"
 import { useCartItem } from "../context/CartItemContext"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/LoginContext"
 
 export default function Navbar() {
 	const { count } = useCartItem()
+	const [query, setQuery] = useState("")
+	const navigate = useNavigate()
+
+	const { logOut } = useAuth()
+
+	useEffect(() => {
+		if (query === "" && location.pathname.startsWith("/home")) {
+			navigate("/home")
+		}
+	}, [query])
+
+	const handleSearch = () => {
+		if (!query.trim()) return
+		navigate(`/home?query=${encodeURIComponent(query)}`)
+	}
+
 	return (
 		<header className="sticky top-0 bg-amber-50 border-b shadow-sm z-50 h-14">
 			<div className="w-[85%] mx-auto flex items-center justify-between px-4 py-3">
@@ -13,6 +32,9 @@ export default function Navbar() {
 						placeholder="Buscar producto..."
 						type="text"
 						className=" outline-0 placeholder:opacity-50"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						onKeyDown={(e) => e.key === "Enter" && handleSearch()}
 					/>
 					<SearchIcon size={20} />
 				</div>
@@ -24,6 +46,7 @@ export default function Navbar() {
 									{count}
 								</span>
 							)}
+
 							<CartIcon size={24} />
 						</Link>
 					</div>
@@ -34,6 +57,9 @@ export default function Navbar() {
 					<Link to="/home">
 						<HomeIcon size={24} />
 					</Link>
+					<button className="cursor-pointer" onClick={logOut}>
+						<LogOutIcon size={24} />
+					</button>
 				</nav>
 			</div>
 		</header>
