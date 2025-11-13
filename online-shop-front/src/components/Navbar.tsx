@@ -40,7 +40,7 @@ export default function Navbar() {
 				</div>
 				<nav className="flex  items-center gap-6 text-sm">
 					<div className="relative max-w-min">
-						{user && <p>Hola de nuevo, {user.email}!</p>}
+						{user && <p>Hola de nuevo, {user.name}!</p>}
 
 						<Link to="/home/cart">
 							{count > 0 && (

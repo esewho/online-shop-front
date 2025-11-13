@@ -1,6 +1,7 @@
-import { useContext, createContext, useState } from "react"
+import { useContext, createContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import type { User } from "../types/user-type"
+import { loginGuest } from "../lib/lib"
 
 export interface AuthContextType {
 	user: User | null
@@ -17,6 +18,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null)
 	const [token, setToken] = useState(localStorage.getItem("accessToken") || "")
 	const navigate = useNavigate()
+
+	useEffect(() => {
+		async function handleGuestLogin() {
+			if (localStorage.getItem("accessToken")) return
+			if (window.location.pathname.startsWith("/auth")) return
+			let guestId = localStorage.getItem("guestId")
+			if (!guestId) {
+				guestId = crypto.randomUUID()
+				localStorage.setItem("guestId", guestId)
+			}
+			try {
+				const response = await loginGuest(guestId)
+				localStorage.setItem("accessToken", response.accessToken)
+				setToken(response.accessToken)
+			} catch (error) {
+				console.error("Error logging in as guest:", error)
+			}
+		}
+		handleGuestLogin()
+	}, [])
+
 	const loginAction = async (data: { email: string; password: string }) => {
 		try {
 			const response = await fetch(`${API_URL}/auth/login`, {
@@ -31,8 +53,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			}
 			const result = await response.json()
 			if (result.accessToken) {
-				setUser(result.data.user)
-				setToken(result.data.accessToken)
+				localStorage.removeItem("guestId")
+				setUser(result.user)
+				setToken(result.accessToken)
 				localStorage.setItem("accessToken", result.accessToken)
 				navigate("/home")
 				return

@@ -1,28 +1,30 @@
-import { useEffect, useState } from "react"
-import { loginGuest } from "../lib/lib"
+// import { useEffect, useState } from "react"
+// import { loginGuest } from "../lib/lib"
 
-export default function useLoginGuest() {
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+// export default function useLoginGuest() {
+// 	const [loading, setLoading] = useState(false)
+// 	const [error, setError] = useState<string | null>(null)
 
-	useEffect(() => {
-		async function login() {
-			let guestId = localStorage.getItem("guestId")
-			if (!guestId) {
-				guestId = crypto.randomUUID()
-				localStorage.setItem("guestId", guestId)
-			}
-			try {
-				const response = await loginGuest(guestId)
-				localStorage.setItem("accessToken", response.accessToken)
-				setLoading(false)
-			} catch (error) {
-				console.error("Error logging in as guest:", error)
-				setError("Failed to login as guest")
-				setLoading(false)
-			}
-		}
-		login()
-	}, [])
-	return { loading, error }
-}
+// 	useEffect(() => {
+// 		async function login() {
+// 			const accessToken = localStorage.getItem("accessToken")
+// 			if (accessToken) return
+// 			let guestId = localStorage.getItem("guestId")
+// 			if (!guestId) {
+// 				guestId = crypto.randomUUID()
+// 				localStorage.setItem("guestId", guestId)
+// 			}
+// 			try {
+// 				const response = await loginGuest(guestId)
+// 				localStorage.setItem("accessToken", response.accessToken)
+// 				setLoading(false)
+// 			} catch (error) {
+// 				console.error("Error logging in as guest:", error)
+// 				setError("Failed to login as guest")
+// 				setLoading(false)
+// 			}
+// 		}
+// 		login()
+// 	}, [])
+// 	return { loading, error }
+// }

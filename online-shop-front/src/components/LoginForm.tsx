@@ -20,7 +20,7 @@ export default function LoginForm() {
 			}
 			await loginAction({ email, password })
 
-			toast.success("¡Bienvenido de nuevo!")
+			toast.success("¡Bienvenid@ de nuevo!")
 
 			navigate("/home")
 		} catch (error) {
