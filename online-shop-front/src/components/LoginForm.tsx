@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { login } from "../lib/lib"
+
 import { toast } from "react-hot-toast"
+import { useAuth } from "../context/LoginContext"
 
 export default function LoginForm() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const navigate = useNavigate()
+
+	const { loginAction } = useAuth()
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -15,9 +18,8 @@ export default function LoginForm() {
 				toast.error("Por favor, completa todos los campos.")
 				return
 			}
-			const data = await login(email, password)
+			await loginAction({ email, password })
 
-			localStorage.setItem("accessToken", data.accessToken)
 			toast.success("¡Bienvenido de nuevo!")
 
 			navigate("/home")

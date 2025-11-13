@@ -31,8 +31,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			}
 			const result = await response.json()
 			if (result.accessToken) {
-				setUser(result.user)
-				setToken(result.accessToken)
+				setUser(result.data.user)
+				setToken(result.data.accessToken)
 				localStorage.setItem("accessToken", result.accessToken)
 				navigate("/home")
 				return

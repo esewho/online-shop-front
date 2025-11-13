@@ -52,67 +52,62 @@ export const CartItemProvider = ({
 	}, [])
 
 	const add = async (product: Product, qty: number = 1) => {
-		const token = localStorage.getItem("accessToken")
-
-		console.log("Adding to cart:", product, qty)
-
-		if (!token) {
-			// User is not authenticated, handle accordingly
-			const cartItems = localStorage.getItem("cartItems")
-			if (!cartItems || cartItems === "[]") {
-				localStorage.setItem(
-					"cartItems",
-					JSON.stringify([{ product, quantity: qty }])
-				)
-				return
-			}
-			const parsedItems: { product: Product; quantity: number }[] =
-				JSON.parse(cartItems)
-			const existingItemIndex = parsedItems.findIndex(
-				(item) => item.product.id === product.id
-			)
-			if (existingItemIndex !== -1) {
-				parsedItems[existingItemIndex].quantity += qty
-			} else {
-				parsedItems.push({ product, quantity: qty })
-			}
-			localStorage.setItem("cartItems", JSON.stringify(parsedItems))
-			return
-		}
-
-		// Save to db using logged user
-
-		// try {
-
-		// 	setCart((prevCart) => {
-		// 		const existingItem = prevCart.items.find(
-		// 			(item) => item.product.id === product.id
+		// const token = localStorage.getItem("accessToken")
+		// console.log("Adding to cart:", product, qty)
+		// if (!token) {
+		// 	// User is not authenticated, handle accordingly
+		// 	const cartItems = localStorage.getItem("cartItems")
+		// 	if (!cartItems || cartItems === "[]") {
+		// 		localStorage.setItem(
+		// 			"cartItems",
+		// 			JSON.stringify([{ product, quantity: qty }])
 		// 		)
-		// 		if (existingItem) {
-		// 			return {
-		// 				...prevCart,
-		// 				items: prevCart.items.map((item) =>
-		// 					item.product.id === product.id
-		// 						? { ...item, quantity: item.quantity + qty }
-		// 						: item
-		// 				),
-		// 			}
-		// 		}
-		// 		return {
-		// 			...prevCart,
-		// 			items: [...prevCart.items, { product, quantity: qty }],
-		// 		}
-		// 	})
-
-		// 	await toast.promise(incrementCartItem(product.id), {
-		// 		loading: "Adding to cart...",
-		// 		success: "Product added to cart!",
-		// 		error: "Error adding product to cart",
-		// 	})
-		// } catch (error) {
-		// 	console.error("Error adding to cart:", error)
-		// 	setCart(previousCart)
+		// 		return
+		// 	}
+		// 	const parsedItems: { product: Product; quantity: number }[] =
+		// 		JSON.parse(cartItems)
+		// 	const existingItemIndex = parsedItems.findIndex(
+		// 		(item) => item.product.id === product.id
+		// 	)
+		// 	if (existingItemIndex !== -1) {
+		// 		parsedItems[existingItemIndex].quantity += qty
+		// 	} else {
+		// 		parsedItems.push({ product, quantity: qty })
+		// 	}
+		// 	localStorage.setItem("cartItems", JSON.stringify(parsedItems))
+		// 	return
 		// }
+		// Save to db using logged user
+		const previousCart = cart
+		try {
+			setCart((prevCart) => {
+				const existingItem = prevCart.items.find(
+					(item) => item.product.id === product.id
+				)
+				if (existingItem) {
+					return {
+						...prevCart,
+						items: prevCart.items.map((item) =>
+							item.product.id === product.id
+								? { ...item, quantity: item.quantity + qty }
+								: item
+						),
+					}
+				}
+				return {
+					...prevCart,
+					items: [...prevCart.items, { product, quantity: qty }],
+				}
+			})
+			await toast.promise(incrementCartItem(product.id), {
+				loading: "Adding to cart...",
+				success: "Product added to cart!",
+				error: "Error adding product to cart",
+			})
+		} catch (error) {
+			console.error("Error adding to cart:", error)
+			setCart(previousCart)
+		}
 	}
 
 	const decrement = async (productId: string, qty: number = 1) => {

@@ -48,7 +48,6 @@ export default function RegisterForm() {
 				<h2 className="text-3xl font-bold text-center text-zinc-700">
 					Crear cuenta
 				</h2>
-
 				<div className="space-y-4">
 					<div>
 						<label
@@ -101,7 +100,6 @@ export default function RegisterForm() {
 						/>
 					</div>
 				</div>
-
 				<button
 					type="submit"
 					className="w-full py-2 mt-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-all shadow-sm hover:shadow-md cursor-pointer"
@@ -109,16 +107,28 @@ export default function RegisterForm() {
 				>
 					Registrarme
 				</button>
-
 				<p className="text-sm text-center text-zinc-500">
 					¿Ya tienes una cuenta?{" "}
 					<a
-						href="/login"
+						href="/auth/login"
 						className="text-amber-600 font-medium hover:underline"
 					>
 						Inicia sesión
 					</a>
 				</p>
+				<div className="flex flex-row gap-1 justify-center items-center mt-4">
+					<div className="text-center text-zinc-500 text-sm">
+						<p>Si quieres continuar sin registrarte</p>
+					</div>
+					<div className="text-center text-sm text-amber-600 font-medium hover:underline cursor-pointer">
+						<button
+							className="cursor-pointer hover:underline "
+							onClick={() => navigate("/home")}
+						>
+							Click aquí
+						</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	)

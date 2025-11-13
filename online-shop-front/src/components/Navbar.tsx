@@ -10,7 +10,7 @@ export default function Navbar() {
 	const [query, setQuery] = useState("")
 	const navigate = useNavigate()
 
-	const { logOut } = useAuth()
+	const { logOut, user } = useAuth()
 
 	useEffect(() => {
 		if (query === "" && location.pathname.startsWith("/home")) {
@@ -40,6 +40,8 @@ export default function Navbar() {
 				</div>
 				<nav className="flex  items-center gap-6 text-sm">
 					<div className="relative max-w-min">
+						{user && <p>Hola de nuevo, {user.email}!</p>}
+
 						<Link to="/home/cart">
 							{count > 0 && (
 								<span className="absolute bottom-6  left-3  bg-red-500 text-white text-xs font-bold px-2 py-0 rounded-full">
