@@ -38,10 +38,10 @@ export default function Navbar() {
 					/>
 					<SearchIcon size={20} />
 				</div>
-				<nav className="flex  items-center gap-6 text-sm">
-					<div className="relative max-w-min">
-						{user && <p>Hola de nuevo, {user.name}!</p>}
+				<nav className="flex items-center gap-6 text-sm">
+					{user && <p>Hola de nuevo, {user.name}!</p>}
 
+					<div className="relative max-w-min">
 						<Link to="/home/cart">
 							{count > 0 && (
 								<span className="absolute bottom-6  left-3  bg-red-500 text-white text-xs font-bold px-2 py-0 rounded-full">

@@ -1,6 +1,8 @@
 import { useState } from "react"
-import { register } from "../lib/lib"
+import { loginGuest, register } from "../lib/lib"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/LoginContext"
+import toast from "react-hot-toast"
 
 export default function RegisterForm() {
 	const [name, setName] = useState("")
@@ -8,6 +10,23 @@ export default function RegisterForm() {
 	const [password, setPassword] = useState("")
 
 	const navigate = useNavigate()
+
+	const { registerAction } = useAuth()
+
+	async function loginAsGuest() {
+		let guestId = localStorage.getItem("guestId")
+
+		if (!guestId) {
+			guestId = crypto.randomUUID()
+			localStorage.setItem("guestId", guestId)
+		}
+
+		const response = await loginGuest(guestId)
+
+		localStorage.setItem("accessToken", response.accessToken)
+
+		return guestId
+	}
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -32,8 +51,9 @@ export default function RegisterForm() {
 				alert("El nombre no puede exceder los 50 caracteres.")
 				return
 			}
-			const data = await register(email, name, password)
-			localStorage.setItem("accessToken", data.accessToken)
+			await registerAction({ name, email, password })
+			toast.success("¡Registro exitoso! Bienvenid@.")
+			navigate("/home")
 		} catch (error) {
 			console.error("Registration failed:", error)
 		}
@@ -123,7 +143,10 @@ export default function RegisterForm() {
 					<div className="text-center text-sm text-amber-600 font-medium hover:underline cursor-pointer">
 						<button
 							className="cursor-pointer hover:underline "
-							onClick={() => navigate("/home")}
+							onClick={async () => {
+								loginAsGuest()
+								navigate("/home")
+							}}
 						>
 							Click aquí
 						</button>
