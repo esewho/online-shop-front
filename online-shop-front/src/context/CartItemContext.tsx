@@ -1,13 +1,9 @@
 import React, { useEffect } from "react"
 import type { Cart } from "../types/cart-type"
 import type { Product } from "../types/product-type"
-import {
-	decrementCartItem,
-	getUserCart,
-	incrementCartItem,
-	removeFromCart,
-} from "../lib/lib"
+import { decrementCartItem, getUserCart, removeFromCart } from "../lib/lib"
 import toast from "react-hot-toast"
+import { useAuth } from "./LoginContext"
 
 type CartItemCtx = {
 	cart: Cart
@@ -18,6 +14,8 @@ type CartItemCtx = {
 	total: number
 	count: number
 }
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
 const CartItemContext = React.createContext<CartItemCtx | undefined>(undefined)
 
@@ -33,8 +31,11 @@ export const CartItemProvider = ({
 		total: 0,
 	})
 
+	const { token } = useAuth()
+
 	useEffect(() => {
 		async function fetchCart() {
+			if (!token) return
 			try {
 				const cart = await getUserCart()
 				setCart((prev) => ({
@@ -49,63 +50,53 @@ export const CartItemProvider = ({
 			}
 		}
 		fetchCart()
-	}, [])
+	}, [token])
 
 	const add = async (product: Product, qty: number = 1) => {
-		// const token = localStorage.getItem("accessToken")
-		// console.log("Adding to cart:", product, qty)
-		// if (!token) {
-		// 	// User is not authenticated, handle accordingly
-		// 	const cartItems = localStorage.getItem("cartItems")
-		// 	if (!cartItems || cartItems === "[]") {
-		// 		localStorage.setItem(
-		// 			"cartItems",
-		// 			JSON.stringify([{ product, quantity: qty }])
-		// 		)
-		// 		return
-		// 	}
-		// 	const parsedItems: { product: Product; quantity: number }[] =
-		// 		JSON.parse(cartItems)
-		// 	const existingItemIndex = parsedItems.findIndex(
-		// 		(item) => item.product.id === product.id
-		// 	)
-		// 	if (existingItemIndex !== -1) {
-		// 		parsedItems[existingItemIndex].quantity += qty
-		// 	} else {
-		// 		parsedItems.push({ product, quantity: qty })
-		// 	}
-		// 	localStorage.setItem("cartItems", JSON.stringify(parsedItems))
-		// 	return
-		// }
-		// Save to db using logged user
 		const previousCart = cart
+
 		try {
-			setCart((prevCart) => {
-				const existingItem = prevCart.items.find(
-					(item) => item.product.id === product.id
+			setCart((prev) => {
+				const existing = prev.items.find(
+					(i) => i.product.externalId === product.externalId
 				)
-				if (existingItem) {
+				if (existing) {
 					return {
-						...prevCart,
-						items: prevCart.items.map((item) =>
-							item.product.id === product.id
-								? { ...item, quantity: item.quantity + qty }
-								: item
+						...prev,
+						items: prev.items.map((i) =>
+							i.product.externalId === product.externalId
+								? { ...i, quantity: i.quantity + qty }
+								: i
 						),
 					}
-				}
-				return {
-					...prevCart,
-					items: [...prevCart.items, { product, quantity: qty }],
+				} else {
+					return {
+						...prev,
+						items: [...prev.items, { product, quantity: qty }],
+					}
 				}
 			})
-			await toast.promise(incrementCartItem(product.id), {
-				loading: "Adding to cart...",
-				success: "Product added to cart!",
-				error: "Error adding product to cart",
-			})
-		} catch (error) {
-			console.error("Error adding to cart:", error)
+
+			await toast.promise(
+				fetch(`${API_URL}/cart/items`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+					},
+					body: JSON.stringify({
+						externalId: product.externalId,
+						quantity: qty,
+					}),
+				}),
+				{
+					loading: "Adding to cart...",
+					success: "Product added to cart!",
+					error: "Error adding product to cart",
+				}
+			)
+		} catch (err) {
+			console.error(err)
 			setCart(previousCart)
 		}
 	}
@@ -118,13 +109,27 @@ export const CartItemProvider = ({
 				return {
 					...prevCart,
 					items: prevCart.items.map((item) =>
-						item.product.id === productId
+						item.product.externalId === productId
 							? { ...item, quantity: Math.max(item.quantity - qty, 1) }
 							: item
 					),
 				}
 			})
-			await decrementCartItem(productId, qty)
+			await toast.promise(
+				fetch(`${API_URL}/cart/items/${productId}/decrement`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ quantity: qty }),
+				}),
+				{
+					loading: "Decrementing cart item...",
+					success: "Cart item decremented!",
+					error: "Error decrementing cart item",
+				}
+			)
 		} catch (error) {
 			console.error("Error decrementing cart item:", error)
 			setCart(previousCart)
@@ -138,7 +143,9 @@ export const CartItemProvider = ({
 			setCart((prevCart) => {
 				return {
 					...prevCart,
-					items: prevCart.items.filter((item) => item.product.id !== productId),
+					items: prevCart.items.filter(
+						(item) => item.product.externalId !== productId
+					),
 				}
 			})
 			await removeFromCart(productId)
@@ -159,7 +166,9 @@ export const CartItemProvider = ({
 				total: 0,
 			})
 			await toast.promise(
-				Promise.all(cart.items.map((item) => removeFromCart(item.product.id))),
+				Promise.all(
+					cart.items.map((item) => removeFromCart(item.product.externalId))
+				),
 				{
 					loading: "Clearing cart...",
 					success: "Cart cleared!",

@@ -15,7 +15,6 @@ export default function RegisterForm() {
 
 	async function loginAsGuest() {
 		let guestId = localStorage.getItem("guestId")
-
 		if (!guestId) {
 			guestId = crypto.randomUUID()
 			localStorage.setItem("guestId", guestId)

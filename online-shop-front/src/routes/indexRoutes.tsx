@@ -18,16 +18,15 @@ export default function IndexRoutes() {
 					<Route path="/home" element={<Dashboard />} />
 					<Route path="/home/products/:id" element={<ProductDetail />} />
 					<Route path="/home/cart" element={<Cart />} />
+					<Route
+						path="/profile/me"
+						element={
+							<ProtectedRoute>
+								<ProfilePage />
+							</ProtectedRoute>
+						}
+					></Route>
 				</Route>
-
-				<Route
-					path="/profile/me"
-					element={
-						<ProtectedRoute>
-							<ProfilePage />
-						</ProtectedRoute>
-					}
-				></Route>
 			</Routes>
 		</>
 	)

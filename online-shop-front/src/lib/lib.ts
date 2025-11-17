@@ -48,6 +48,7 @@ export async function getAllProducts(params: {
 }
 
 export async function getProductById(id: string): Promise<Product> {
+	console.log(id, "-----------------id-------------------")
 	const token = localStorage.getItem("accessToken")
 	const response = await fetch(`${API_URL}/products/${id}`, {
 		method: "GET",

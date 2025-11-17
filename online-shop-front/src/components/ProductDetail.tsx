@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllProducts, getProductById, addToCart } from "../lib/lib"
+import { getAllProducts, getProductById } from "../lib/lib"
 import type { Product } from "../types/product-type"
 import { useParams } from "react-router-dom"
 import toast from "react-hot-toast"
@@ -22,6 +22,7 @@ export default function ProductDetail() {
 			try {
 				setLoading(true)
 				const data = await getProductById(id!)
+				console.log(data, "-------fetched product details-------")
 				setProduct(data)
 				setSelectedImage(data.images.length > 0 ? data.images[0] : "")
 				window.scrollTo({ top: 0, behavior: "smooth" })
@@ -114,7 +115,7 @@ export default function ProductDetail() {
 						</p>
 
 						<button
-							onClick={() => addToCart(String(product.id))}
+							onClick={() => add(product, 1)}
 							className="bg-black text-white font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
 						>
 							Añadir al carrito

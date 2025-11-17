@@ -4,25 +4,17 @@ import { DecrementIcon, IncrementIcon, TrashIcon } from "./Icons"
 import type { Product } from "../types/product-type"
 
 type Props = {
-	id: string
-	externalId?: string
-	title: string
-	price: number
+	product: Product
 	quantity: number
-	images: string[]
-	category: string
+	title: string
 }
-export default function ItemCartCard({
-	id,
-	title,
-	price,
-	quantity,
-	images,
-	category,
-}: Props) {
+
+export default function ItemCartCard({ product, quantity, title }: Props) {
 	const navigate = useNavigate()
 
 	const { add, decrement, removeLine } = useCartItem()
+
+	const { externalId, images, price, category } = product
 
 	return (
 		<div className="w-full rounded-lg overflow-hidden shadow-lg p-4 flex gap-4 bg-amber-50">
@@ -30,7 +22,7 @@ export default function ItemCartCard({
 				src={images?.[0] ?? ""}
 				alt={title}
 				className="w-24 h-24 object-cover rounded-md cursor-pointer shrink-0"
-				onClick={() => navigate(`/home/products/${id}`)}
+				onClick={() => navigate(`/home/products/${externalId}`)}
 			/>
 
 			<div className="flex-1 flex flex-col">
@@ -38,13 +30,13 @@ export default function ItemCartCard({
 				<div className="flex items-center justify-between">
 					<h1 className="text-lg font-bold text-zinc-700 line-clamp-2 min-h-[3.25rem]">
 						{title}
-						<p>{category}</p>
+						<p>{category.name}</p>
 					</h1>
 				</div>
 
 				<div className="flex flex-row items-center max-w-40 max-h-35">
 					<button
-						onClick={() => decrement(id)}
+						onClick={() => decrement(externalId)}
 						className="cursor-pointer mt-0.5 bg-black rounded-2xl p-0"
 					>
 						<DecrementIcon size={18} />
@@ -53,7 +45,7 @@ export default function ItemCartCard({
 						Cantidad: {quantity}
 					</p>
 					<button
-						onClick={() => add({ id } as Product, 1)}
+						onClick={() => add(product, 1)}
 						className="cursor-pointer mt-0.5 bg-black rounded-2xl p-0"
 					>
 						<IncrementIcon size={19.5} />
@@ -67,7 +59,7 @@ export default function ItemCartCard({
 					</span>
 
 					<button
-						onClick={() => removeLine(id)}
+						onClick={() => removeLine(externalId)}
 						className="px-2 py-1 bg-black rounded-2xl text-sm font-semibold text-white shrink-0 cursor-pointer"
 					>
 						<TrashIcon size={16} />

@@ -4,6 +4,7 @@ import { useCartItem } from "../context/CartItemContext"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/LoginContext"
+import { useProfile } from "../context/ProfileContext"
 
 export default function Navbar() {
 	const { count } = useCartItem()
@@ -39,7 +40,11 @@ export default function Navbar() {
 					<SearchIcon size={20} />
 				</div>
 				<nav className="flex items-center gap-6 text-sm">
-					{user && <p>Hola de nuevo, {user.name}!</p>}
+					{user && (
+						<p className="text-gray-700 font-semibold hidden md:block">
+							Hola de nuevo, {user.name}!
+						</p>
+					)}
 
 					<div className="relative max-w-min">
 						<Link to="/home/cart">

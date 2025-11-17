@@ -15,15 +15,20 @@ export default function Cart() {
 			<h1 className="text-2xl font-bold mb-4 text-zinc-700">Mi Carrito</h1>
 			{cart.items.map((item) => (
 				<ItemCartCard
-					category={item.product.category.name}
-					key={item.product.id}
-					images={item.product.images}
-					price={item.product.price}
-					id={item.product.id}
+					product={item.product}
 					title={
 						item.product?.title ?? item.product?.name ?? "Producto sin título"
 					}
 					quantity={item.quantity}
+					// externalId={item.product.externalId}
+					// key={item.product.id}
+					// images={item.product.images}
+					// price={item.product.price}
+					// id={item.product.id}
+					// title={
+					// 	item.product?.title ?? item.product?.name ?? "Producto sin título"
+					// }
+					// quantity={item.quantity}
 				/>
 			))}
 			<div className="mt-4 flex flex-row justify-end gap-3 items-center">
