@@ -1,7 +1,7 @@
-import { useContext, createContext, useState, useEffect } from "react"
+import { useContext, createContext, useState, useEffect, use } from "react"
 import { useNavigate } from "react-router-dom"
 import type { User } from "../types/user-type"
-import { loginGuest } from "../lib/lib"
+import { getProfile, loginGuest } from "../lib/lib"
 
 export interface AuthContextType {
 	user: User | null
@@ -23,6 +23,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null)
 	const [token, setToken] = useState(localStorage.getItem("accessToken") || "")
 	const navigate = useNavigate()
+
+	useEffect(() => {
+		const storedToken = localStorage.getItem("accessToken")
+		if (storedToken) {
+			setToken(storedToken)
+		}
+	}, [])hji
+	useEffect(() => {
+		async function loadProfile() {
+			if (!token) return
+			try {
+				const profile = await getProfile()
+				setUser(profile)
+			} catch (error) {
+				console.error("Failed to fetch profile:", error)
+			}
+		}
+		loadProfile()
+	}, [token])
 
 	useEffect(() => {
 		async function handleGuestLogin() {
