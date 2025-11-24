@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect, use } from "react"
+import { useContext, createContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import type { User } from "../types/user-type"
 import { getProfile, loginGuest } from "../lib/lib"
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		if (storedToken) {
 			setToken(storedToken)
 		}
-	}, [])hji
+	}, [])
 	useEffect(() => {
 		async function loadProfile() {
 			if (!token) return
