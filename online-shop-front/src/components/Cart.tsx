@@ -6,6 +6,7 @@ import type { Product } from "../types/product-type"
 import toast from "react-hot-toast"
 import ItemCartCard from "./ItemCart-card"
 import { useCartItem } from "../context/CartItemContext"
+import { startCheckout } from "./stripe"
 
 export default function Cart() {
 	const { cart, total, count } = useCartItem()
@@ -39,7 +40,10 @@ export default function Cart() {
 				<p className="text-xl text-center font-semibold text-zinc-600">
 					| <span className="text-amber-500"> {count}</span> items
 				</p>
-				<button className="bg-amber-500 hover:bg-amber-600 transition-all ease-in-out duration-200 cursor-pointer text-white py-1 px-2 rounded-md">
+				<button
+					onClick={() => startCheckout(cart.items)}
+					className="bg-amber-500 hover:bg-amber-600 transition-all ease-in-out duration-200 cursor-pointer text-white py-1 px-2 rounded-md"
+				>
 					Finalizar compra
 				</button>
 			</div>
