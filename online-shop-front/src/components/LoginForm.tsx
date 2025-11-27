@@ -18,7 +18,12 @@ export default function LoginForm() {
 				toast.error("Por favor, completa todos los campos.")
 				return
 			}
-			await loginAction({ email, password })
+			const success = await loginAction({ email, password })
+
+			if (!success) {
+				toast.error("Correo o contraseña incorrectos.")
+				return
+			}
 
 			toast.success("¡Bienvenid@ de nuevo!")
 

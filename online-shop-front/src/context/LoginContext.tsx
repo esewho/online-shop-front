@@ -6,7 +6,7 @@ import { getProfile, loginGuest } from "../lib/lib"
 export interface AuthContextType {
 	user: User | null
 	token: string
-	loginAction: (data: { email: string; password: string }) => Promise<void>
+	loginAction: (data: { email: string; password: string }) => Promise<boolean>
 	registerAction: (data: {
 		name: string
 		email: string
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				body: JSON.stringify(data),
 			})
 			if (!response.ok) {
-				throw new Error("Failed to login")
+				return false
 			}
 			const result = await response.json()
 			if (result.accessToken) {
@@ -81,11 +81,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				setUser(result.user)
 				setToken(result.accessToken)
 				localStorage.setItem("accessToken", result.accessToken)
-				navigate("/home")
-				return
+				return true
 			}
+			return false
 		} catch (error) {
 			console.error("Login failed:", error)
+			return false
 		}
 	}
 
