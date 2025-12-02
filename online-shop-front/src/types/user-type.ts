@@ -6,4 +6,5 @@ export type User = {
 	address?: string
 	phone?: string
 	avatarUrl?: string
+	guest: boolean
 }

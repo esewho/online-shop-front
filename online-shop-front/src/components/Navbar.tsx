@@ -45,6 +45,22 @@ export default function Navbar() {
 							Hola de nuevo, {user.name}!
 						</p>
 					)}
+					{!user && (
+						<div className="flex gap-3">
+							<button
+								className="underline text-blue-600 cursor-pointer"
+								onClick={() => navigate("/auth/login")}
+							>
+								Iniciar sesión
+							</button>
+							<button
+								onClick={() => navigate("/auth/register")}
+								className="underline text-blue-600 cursor-pointer"
+							>
+								Registrarse
+							</button>
+						</div>
+					)}
 
 					<div className="relative max-w-min">
 						<Link to="/home/cart">
