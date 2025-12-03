@@ -24,15 +24,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [token, setToken] = useState(localStorage.getItem("accessToken") || "")
 	const navigate = useNavigate()
 
-	useEffect(() => {
-		const storedToken = localStorage.getItem("accessToken")
-		if (storedToken) {
-			setToken(storedToken)
-		}
-	}, [])
+	// useEffect(() => {
+	// 	const storedToken = localStorage.getItem("accessToken")
+	// 	if (storedToken) {
+	// 		setToken(storedToken)
+	// 	}
+	// }, [])
 	useEffect(() => {
 		async function loadProfile() {
 			if (!token) return
+
+			const payload = JSON.parse(atob(token.split(".")[1]))
+
+			if (payload.guest) {
+				setUser({ id: payload.sub, guest: true })
+				return
+			}
 			try {
 				const profile = await getProfile()
 				setUser(profile)

@@ -4,7 +4,7 @@ import { useCartItem } from "../context/CartItemContext"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/LoginContext"
-import { useProfile } from "../context/ProfileContext"
+import DarkThemeButton from "./DarkThemeButton"
 
 export default function Navbar() {
 	const { count } = useCartItem()
@@ -25,14 +25,14 @@ export default function Navbar() {
 	}
 
 	return (
-		<header className="sticky top-0 bg-amber-50 border-b shadow-sm z-50 h-14">
+		<header className="sticky top-0 dark:bg-gray-900  border-b shadow-sm z-50 h-14">
 			<div className="w-[85%] mx-auto flex items-center justify-between px-4 py-3">
-				<div>logo</div>
+				<div className="">logo</div>
 				<div className="border flex flex-row items-center py-1 px-2 bg-white rounded-sm gap-2">
 					<input
 						placeholder="Buscar producto..."
 						type="text"
-						className=" outline-0 placeholder:opacity-50"
+						className=" outline-0 placeholder:opacity-50 dark:placeholder:text-black bg-transparent dark:text-black"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 						onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -41,10 +41,11 @@ export default function Navbar() {
 				</div>
 				<nav className="flex items-center gap-6 text-sm">
 					{user && (
-						<p className="text-gray-700 font-semibold hidden md:block">
+						<p className="dark:text-white font-semibold hidden md:block">
 							Hola de nuevo, {user.name}!
 						</p>
 					)}
+					<DarkThemeButton />
 					{!user && (
 						<div className="flex gap-3">
 							<button

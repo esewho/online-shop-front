@@ -47,7 +47,7 @@ export default function ProfilePage() {
 
 			{user ? (
 				<div className="space-y-4">
-					<div className="bg-amber-50 p-4 rounded-md shadow-inner">
+					<div className="bg-black/5 p-4 rounded-md shadow-inner">
 						<p className="text-sm text-zinc-500 mb-1">Nombre</p>
 						<p className="font-semibold text-zinc-700">{user.name}</p>
 
@@ -77,7 +77,7 @@ export default function ProfilePage() {
 								type="text"
 								value={address}
 								onChange={(e) => setAddress(e.target.value)}
-								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none placeholder:opacity-40"
+								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black/50 focus:outline-none placeholder:opacity-40"
 								placeholder="Introduce tu dirección"
 							/>
 						</div>
@@ -90,7 +90,7 @@ export default function ProfilePage() {
 								type="text"
 								value={phone}
 								onChange={(e) => setPhone(e.target.value)}
-								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none placeholder:opacity-40"
+								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black/50  focus:outline-none placeholder:opacity-40"
 								placeholder="Ej: 600123456"
 							/>
 						</div>
@@ -103,7 +103,7 @@ export default function ProfilePage() {
 								type="text"
 								value={avatarUrl}
 								onChange={(e) => setAvatarUrl(e.target.value)}
-								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none placeholder:opacity-40"
+								className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black/50 focus:outline-none placeholder:opacity-40"
 								placeholder="https://imagen.com/avatar.png"
 							/>
 						</div>
@@ -111,7 +111,7 @@ export default function ProfilePage() {
 						<button
 							onClick={handleSubmit}
 							type="submit"
-							className="w-full py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition cursor-pointer shadow"
+							className="w-full py-2 bg-black/50 text-white font-semibold rounded-lg hover:bg-black/100 transition ease-in-out duration-200 cursor-pointer shadow"
 						>
 							Guardar cambios
 						</button>

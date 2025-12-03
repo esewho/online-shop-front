@@ -59,7 +59,7 @@ export default function Dashboard() {
 	if (error) return <div>Error loading dashboard</div>
 	return (
 		<div className="relative  ">
-			<div className="  p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 overflow-x-hidden">
+			<div className="  p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 overflow-x-hidden ">
 				{products.map((p) => (
 					<Card
 						key={p.id}

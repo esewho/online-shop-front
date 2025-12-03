@@ -17,7 +17,7 @@ export default function ItemCartCard({ product, quantity, title }: Props) {
 	const { externalId, images, price, category } = product
 
 	return (
-		<div className="w-full rounded-lg overflow-hidden shadow-lg p-4 flex gap-4 bg-amber-50">
+		<div className="w-full rounded-lg overflow-hidden shadow-lg p-4 flex gap-4 bg-black/5">
 			<img
 				src={images?.[0] ?? ""}
 				alt={title}

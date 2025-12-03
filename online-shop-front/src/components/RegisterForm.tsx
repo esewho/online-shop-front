@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { loginGuest, register } from "../lib/lib"
+import { loginGuest } from "../lib/lib"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/LoginContext"
 import toast from "react-hot-toast"
@@ -21,9 +21,7 @@ export default function RegisterForm() {
 		}
 
 		const response = await loginGuest(guestId)
-
 		localStorage.setItem("accessToken", response.accessToken)
-
 		return guestId
 	}
 

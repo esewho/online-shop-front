@@ -10,14 +10,14 @@ export default function Pagination(props: Props) {
 			<button
 				disabled={page === 1}
 				onClick={() => handlePageChange(page - 1)}
-				className="px-4 py-2 mx-1  bg-amber-50 text-black rounded border font-semibold disabled:bg-gray-400 cursor-pointer"
+				className="px-4 py-2 mx-1  bg-gray-900 text-white rounded border font-semibold disabled:bg-gray-400 cursor-pointer"
 			>
 				Anterior
 			</button>
-			<span className="mx-2">Pagina {page}</span>
+			<span className="mx-2 dark:text-black">Pagina {page}</span>
 			<button
 				onClick={() => handlePageChange(page + 1)}
-				className="px-4 py-2 mx-1 bg-amber-50 text-black font-semibold border rounded cursor-pointer"
+				className="px-4 py-2 mx-1 bg-gray-900 text-white font-semibold border rounded cursor-pointer"
 			>
 				Siguiente
 			</button>

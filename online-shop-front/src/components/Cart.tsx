@@ -12,7 +12,7 @@ export default function Cart() {
 	const { cart, total, count } = useCartItem()
 
 	return (
-		<div className="w-full items-center h-full gap-4 flex flex-col">
+		<div className="w-full items-center h-full gap-4 flex flex-col bg-black/5 p-6 rounded-lg shadow-md">
 			<h1 className="text-2xl font-bold mb-4 text-zinc-700">Mi Carrito</h1>
 			{cart.items.map((item) => (
 				<ItemCartCard
@@ -38,11 +38,11 @@ export default function Cart() {
 					${total.toFixed(2)}
 				</p>
 				<p className="text-xl text-center font-semibold text-zinc-600">
-					| <span className="text-amber-500"> {count}</span> items
+					| <span className="text-zinc-600"> {count}</span> items
 				</p>
 				<button
 					onClick={() => startCheckout(cart.items)}
-					className="bg-amber-500 hover:bg-amber-600 transition-all ease-in-out duration-200 cursor-pointer text-white py-1 px-2 rounded-md"
+					className="bg-gray-700 hover:bg-gray-900 transition-all ease-in-out duration-200 cursor-pointer text-white py-1 px-2 rounded-md"
 				>
 					Finalizar compra
 				</button>
