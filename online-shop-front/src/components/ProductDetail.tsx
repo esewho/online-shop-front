@@ -104,19 +104,19 @@ export default function ProductDetail() {
 					<>
 						<p>{product.category.name}</p>
 
-						<h1 className="text-3xl font-bold mb-2 text-zinc-700">
+						<h1 className="text-3xl font-bold mb-2 text-zinc-700 dark:text-white">
 							{product.title}
 						</h1>
-						<p className="text-2xl font-semibold mb-4 text-zinc-600">
+						<p className="text-2xl font-semibold mb-4 text-zinc-600 dark:text-white">
 							${product.price.toFixed(2)}
 						</p>
-						<p className="text-zinc-500 h-[328px] overflow-y-auto ">
+						<p className="text-zinc-500 dark:text-white h-[328px] overflow-y-auto ">
 							{product.description}
 						</p>
 
 						<button
 							onClick={() => add(product, 1)}
-							className="bg-black text-white font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
+							className="bg-black dark:bg-white dark:text-black text-white dark:hover:bg-amber-400 transition-all ease-in-out duration-200  font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
 						>
 							Añadir al carrito
 						</button>

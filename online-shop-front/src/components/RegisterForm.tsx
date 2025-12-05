@@ -79,7 +79,7 @@ export default function RegisterForm() {
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 							required
-							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+							className="w-full px-4 py-2 border border-zinc-300 dark:text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
 						/>
 					</div>
 
@@ -96,7 +96,7 @@ export default function RegisterForm() {
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							required
-							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+							className="w-full px-4 py-2 border border-zinc-300 rounded-lg dark:text-black focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
 						/>
 					</div>
 
@@ -113,7 +113,7 @@ export default function RegisterForm() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							required
-							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+							className="w-full px-4 py-2 border border-zinc-300 dark:text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
 						/>
 					</div>
 				</div>

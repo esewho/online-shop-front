@@ -58,14 +58,14 @@ export default function LoginForm() {
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							required
-							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all dark:text-black"
 						/>
 					</div>
 
 					<div>
 						<label
 							htmlFor="password"
-							className="block text-sm font-medium text-zinc-600 mb-1"
+							className="block text-sm font-medium text-zinc-600  mb-1"
 						>
 							Contraseña
 						</label>
@@ -75,7 +75,7 @@ export default function LoginForm() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							required
-							className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+							className="w-full px-4 py-2 border border-zinc-300 dark:text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
 						/>
 					</div>
 				</div>

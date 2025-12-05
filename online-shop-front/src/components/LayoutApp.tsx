@@ -13,8 +13,8 @@ export default function LayoutApp() {
 	return (
 		<div className="min-h-screen flex flex-col  ">
 			<Navbar />
-			<main className="flex-1 flex flex-col px-10 py-6 items-center overflow-x-hidden dark:bg-black">
-				<div className="w-full h-full max-w-7xl">
+			<main className="flex-1 flex flex-col px-10 py-6 items-center overflow-x-hidden dark:bg-stone-950 ">
+				<div className="w-full h-full max-w-7xl ">
 					<Outlet />
 				</div>
 			</main>
