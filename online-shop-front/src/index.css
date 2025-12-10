@@ -9,3 +9,44 @@ body {
 .dark body {
 	color: white;
 }
+
+.range-slider__range {
+	background-color: red;
+	/* CSS for range */
+}
+
+.range-slider__range[data-active] {
+	background-color: rgb(21, 25, 229);
+	/* CSS for active (actively being dragged) range */
+}
+.range-slider__thumb {
+	background-color: rgb(54, 54, 54); /* CSS for thumbs */
+}
+.range-slider__thumb[data-lower] {
+	background-color: rgb(54, 54, 54);
+
+	border: 2px solid white;
+
+	/* CSS for lower thumb */
+}
+.range-slider__thumb[data-upper] {
+	background-color: rgb(54, 54, 54);
+	border: 2px solid white;
+	/* CSS for upper thumb */
+}
+.range-slider__thumb[data-active] {
+	background-color: red;
+	/* CSS for active (actively being dragged) thumbs */
+}
+.range-slider__thumb[data-disabled] {
+	background-color: red;
+	/* CSS for disabled thumbs */
+}
+.range-silder__label {
+	background-color: rgb(226, 233, 14);
+	/* CSS for labels */
+}
+
+.range-slider .range-slider__range {
+	background-color: grey;
+}

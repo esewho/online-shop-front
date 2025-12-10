@@ -275,3 +275,18 @@ export async function updateProfile(data: Profile): Promise<void> {
 	}
 	return response.json()
 }
+
+export async function getCategories(): Promise<string[]> {
+	const token = localStorage.getItem("accessToken")
+	const response = await fetch(`${API_URL}/categories`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+	})
+	if (!response.ok) {
+		throw new Error("Failed to fetch categories")
+	}
+	return response.json()
+}

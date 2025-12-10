@@ -13,7 +13,7 @@ export default function ProductCard({ id, title, images, price }: Props) {
 
 	return (
 		<article
-			className="group cursor-pointer relative isolate overflow-hidden rounded-2xl bg-zinc-900 text-white ring-1 ring-zinc-800 shadow-sm hover:shadow-xl transition-all"
+			className="group cursor-pointer relative  isolate overflow-hidden rounded-2xl bg-zinc-900 text-white ring-1 ring-zinc-800 shadow-sm hover:shadow-xl transition-all"
 			role="button"
 			onClick={() => navigate(`/home/products/${id}`)}
 		>
