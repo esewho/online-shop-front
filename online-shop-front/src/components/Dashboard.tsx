@@ -16,6 +16,7 @@ export default function Dashboard() {
 	const [page, setPage] = useState<number>(1)
 	const [priceRange, setPriceRange] = useState<[number, number]>([0, 3500])
 	const [categoryId, setCategoryId] = useState<string>("")
+	const [showFilters, setShowFilters] = useState<boolean>(true)
 
 	// Obtener query de la URL
 	const [searchParams] = useSearchParams()

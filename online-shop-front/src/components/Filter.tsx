@@ -32,7 +32,7 @@ export default function Filter({
 		})
 	}
 	return (
-		<div className="">
+		<div className="opacity-100">
 			<div className=" flex flex-row justify-between items-center p-4 border rounded min-w-full ">
 				<div className="flex flex-col gap-2 ">
 					<select
