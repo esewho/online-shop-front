@@ -49,16 +49,16 @@ export default function Navbar() {
 					{!user && (
 						<div className="flex gap-3">
 							<button
-								className="underline text-blue-600 cursor-pointer"
+								className="font-text text-xs font-semibold rounded-xl bg-black text-white dark:bg-gray-200 dark:hover:bg-gray-300 transition-all ease-in-out duration-200 dark:text-black px-2 py-1 cursor-pointer"
 								onClick={() => navigate("/auth/login")}
 							>
-								Iniciar sesión
+								LogIn
 							</button>
 							<button
 								onClick={() => navigate("/auth/register")}
-								className="underline text-blue-600 cursor-pointer"
+								className="font-text text-xs font-semibold rounded-xl bg-black text-white dark:bg-gray-200 dark:hover:bg-gray-300 transition-all ease-in-out duration-200 dark:text-black px-2 py-1 cursor-pointer"
 							>
-								Registrarse
+								Register
 							</button>
 						</div>
 					)}

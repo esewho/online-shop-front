@@ -5,8 +5,7 @@ import Card from "./Card"
 import toast from "react-hot-toast"
 import Pagination from "./Pagination"
 import { useSearchParams } from "react-router-dom"
-import Filter from "./filter"
-import SliderRangePrice from "./SliderRangePrice"
+import Filter from "./Filter"
 
 export default function Dashboard() {
 	const [loading, setLoading] = useState<boolean>(false)
@@ -16,7 +15,7 @@ export default function Dashboard() {
 	const [page, setPage] = useState<number>(1)
 	const [priceRange, setPriceRange] = useState<[number, number]>([0, 3500])
 	const [categoryId, setCategoryId] = useState<string>("")
-	const [showFilters, setShowFilters] = useState<boolean>(true)
+	const [showFilters, setShowFilters] = useState<boolean>(false)
 
 	// Obtener query de la URL
 	const [searchParams] = useSearchParams()
@@ -75,17 +74,31 @@ export default function Dashboard() {
 	if (error) return <div>Error loading dashboard</div>
 
 	return (
-		<div className="relative">
+		<div className="relative ">
+			<div className="w-full flex justify-center ">
+				<button
+					onClick={() => setShowFilters(!showFilters)}
+					className="px-4 py-2 bg-amber-500 text-white rounded shadow hover:bg-amber-600 transition-all cursor-pointer mb-2"
+				>
+					{showFilters ? "Ocultar filtros" : "Mostrar filtros"}
+				</button>
+			</div>
 			{/* FILTRO — le pasamos fetchProducts */}
 
-			<Filter
-				categories={categories}
-				onFilter={fetchProducts}
-				priceRange={priceRange}
-				setPriceRange={setPriceRange}
-				setCategoryId={setCategoryId}
-				categoryId={categoryId}
-			/>
+			<div
+				className={`transition-all duration-500 overflow-hidden 
+		${showFilters ? "opacity-100 max-h-[500px]" : "opacity-0 max-h-0"}
+	`}
+			>
+				<Filter
+					categories={categories}
+					onFilter={fetchProducts}
+					priceRange={priceRange}
+					setPriceRange={setPriceRange}
+					setCategoryId={setCategoryId}
+					categoryId={categoryId}
+				/>
+			</div>
 
 			<div className="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{products.map((p) => (
