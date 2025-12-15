@@ -22,6 +22,7 @@ const AuthContext = createContext<AuthContextType | null>(null)
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null)
 	const [token, setToken] = useState(localStorage.getItem("accessToken") || "")
+	const [isGuest, setIsGuest] = useState<boolean>(false)
 	const navigate = useNavigate()
 
 	// useEffect(() => {
@@ -37,7 +38,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			const payload = JSON.parse(atob(token.split(".")[1]))
 
 			if (payload.guest) {
-				setUser({ id: payload.sub, guest: true })
+				setIsGuest(true)
+				setUser(null)
 				return
 			}
 			try {

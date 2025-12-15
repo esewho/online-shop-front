@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import { getAllProducts, getCategories } from "../lib/lib"
 import type { Product } from "../types/product-type"
 import Card from "./Card"
-import toast from "react-hot-toast"
 import Pagination from "./Pagination"
 import { useSearchParams } from "react-router-dom"
 import Filter from "./Filter"
+import toast from "react-hot-toast"
 
 export default function Dashboard() {
 	const [loading, setLoading] = useState<boolean>(false)
@@ -31,12 +31,19 @@ export default function Dashboard() {
 				title: query,
 				price_min: priceRange[0],
 				price_max: priceRange[1],
+				categoryId: categoryId ? parseInt(categoryId) : undefined,
 
 				...filters,
 			})
 			setProducts(data)
-		} catch (e) {
-			setError(true)
+		} catch (e: any) {
+			if (e.message.includes("404") || e.message.includes("category")) {
+				toast.error("La categoría seleccionada ya no existe.")
+				setError(true)
+			} else {
+				toast.error("Error loading products.")
+				setError(true)
+			}
 		} finally {
 			setLoading(false)
 		}
