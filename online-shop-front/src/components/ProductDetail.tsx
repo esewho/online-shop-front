@@ -116,7 +116,7 @@ export default function ProductDetail() {
 
 						<button
 							onClick={() => add(product, 1)}
-							className="bg-black dark:bg-white dark:text-black text-white dark:hover:bg-amber-400 transition-all ease-in-out duration-200  font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
+							className="bg-black dark:bg-gray-200 dark:text-black text-white dark:hover:bg-gray-300 transition-all ease-in-out duration-200  font-semibold mt-4 w-auto py-2 px-2 rounded-lg cursor-pointer"
 						>
 							Añadir al carrito
 						</button>

@@ -86,7 +86,7 @@ export default function Filter({
 				</div> */}
 
 				<button
-					className="w-max dark:hover:bg-amber-400 transition-all dark:hover:text-white font-semibold dark:bg-white dark:text-black ease-in-out duration-200 bg-gray-700 hover:bg-gray-900 text-white p-2 rounded cursor-pointer shadow"
+					className="w-max bg-black  dark:hover:bg-gray-300 transition-all  font-semibold  dark:text-black ease-in-out duration-200  dark:bg-gray-200 text-white p-2 rounded cursor-pointer shadow"
 					onClick={applyFilters}
 				>
 					Aplicar filtros

@@ -85,7 +85,7 @@ export default function Dashboard() {
 			<div className="w-full flex justify-center ">
 				<button
 					onClick={() => setShowFilters(!showFilters)}
-					className="px-4 py-2 bg-amber-500 text-white rounded shadow hover:bg-amber-600 transition-all cursor-pointer mb-2"
+					className="px-4 py-2 bg-black  dark:bg-gray-200 dark:hover:bg-gray-300 font-semibold text-white dark:text-black rounded shadow transition-all cursor-pointer mb-2"
 				>
 					{showFilters ? "Ocultar filtros" : "Mostrar filtros"}
 				</button>
