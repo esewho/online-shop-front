@@ -47,7 +47,7 @@ export default function Cart() {
 				</p>
 				<button
 					onClick={() => startCheckout(cart.items)}
-					className="bg-gray-700 font-semibold hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-amber-400  transition-all ease-in-out duration-200 cursor-pointer text-white py-1 px-2 rounded-md"
+					className="px-4 py-2 mx-1 dark:bg-gray-200  bg-black text-white dark:hover:bg-gray-300 dark:text-black ease-in-out transition-all duration-200 rounded border font-semibold  cursor-pointer"
 				>
 					Finalizar compra
 				</button>

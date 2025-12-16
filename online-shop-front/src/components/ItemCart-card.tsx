@@ -37,7 +37,7 @@ export default function ItemCartCard({ product, quantity, title }: Props) {
 				<div className="flex flex-row items-center max-w-40 max-h-35">
 					<button
 						onClick={() => decrement(externalId)}
-						className="cursor-pointer mt-0.5 bg-black text-white dark:bg-white dark:text-black dark:hover:bg-amber-400 ease-in-out transition-all duration-200 rounded-2xl p-0"
+						className="cursor-pointer mt-0.5 bg-black text-white dark:bg-gray-200 dark:text-black dark:hover:bg-gray-300 ease-in-out transition-all duration-200 rounded-2xl p-0"
 					>
 						<DecrementIcon size={18} />
 					</button>
@@ -46,7 +46,7 @@ export default function ItemCartCard({ product, quantity, title }: Props) {
 					</p>
 					<button
 						onClick={() => add(product, 1)}
-						className="cursor-pointer mt-0.5 bg-black text-white dark:bg-white dark:text-black dark:hover:bg-amber-400 transition-all duration-200 rounded-2xl p-0"
+						className="cursor-pointer mt-0.5 bg-black text-white dark:bg-gray-200 dark:text-black dark:hover:bg-gray-300 transition-all duration-200 rounded-2xl p-0"
 					>
 						<IncrementIcon size={19.5} />
 					</button>
@@ -60,7 +60,7 @@ export default function ItemCartCard({ product, quantity, title }: Props) {
 
 					<button
 						onClick={() => removeLine(externalId)}
-						className="px-2 py-1 bg-black dark:bg-white dark:text-black dark:hover:bg-amber-400 ease-in-out transition-all duration-200 rounded-2xl text-sm font-semibold text-white shrink-0 cursor-pointer"
+						className="px-2 py-1 bg-black dark:bg-gray-200 dark:text-black dark:hover:bg-gray-300 ease-in-out transition-all duration-200 rounded-2xl text-sm font-semibold text-white shrink-0 cursor-pointer"
 					>
 						<TrashIcon size={16} />
 					</button>
